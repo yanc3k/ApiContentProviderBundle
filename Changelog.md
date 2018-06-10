@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 1.0.1
+
+* Fixed general minor issues.
+
 ### 1.0.0
 
 * Added Sulu XML template to the docs. Updated Readme.
