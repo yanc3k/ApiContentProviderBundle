@@ -91,7 +91,7 @@ ___Note:___ The URL obove is based on my local setup and will differ based on th
 {
     "url": "/api-content-canvas",
     "title": "canvas",
-	"headline-1": "this is a headline",
+    "headline-1": "this is a headline",
     "image-user": "/media/1/download/penguin.jpeg?v=1",
     "article-1": "<p><strong>yeah, this is a bold text</strong></p>\n\n<p>&nbsp;</p>\n\n<p>asdasdad</p>\n"
 }
