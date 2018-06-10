@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiContentProviderBundle\Models;
+namespace yanc3k\ApiContentProviderBundle\Models;
 
 class ApiContent
 {
