@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### Pre-Release
+### 1.0.0
 
 * Added Sulu XML template to the docs. Updated Readme.
 
