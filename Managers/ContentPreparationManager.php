@@ -1,8 +1,8 @@
 <?php
 
-namespace ApiContentProviderBundle\Managers;
+namespace yanc3k\ApiContentProviderBundle\Managers;
 
-use ApiContentProviderBundle\Models\ApiContent;
+use yanc3k\ApiContentProviderBundle\Models\ApiContent;
 
 class ContentPreparationManager
 {
@@ -46,7 +46,7 @@ class ContentPreparationManager
         // Handle each of the content blocks that was created in the CMS.
         foreach ($blocks as $block) {
             // If the type or the key are not given, this block is useless for us.
-            if (!isset($block['type'] || !isset($block['key']))) {
+            if (!isset($block['type']) || !isset($block['key'])) {
                 continue;
             }
             // Check if the block is a key-value-pair type.

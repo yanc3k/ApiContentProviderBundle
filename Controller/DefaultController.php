@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiContentProviderBundle\Controller;
+namespace yanc3k\ApiContentProviderBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sulu\Bundle\WebsiteBundle\Controller\WebsiteController;

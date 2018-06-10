@@ -1,4 +1,4 @@
 services:
   api_content_provider.content_preparation_manager:
-    class: ApiContentProviderBundle\Managers\ContentPreparationManager
+    class: yanc3k\ApiContentProviderBundle\Managers\ContentPreparationManager
     arguments: []
