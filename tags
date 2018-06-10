@@ -1,0 +1,46 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ApiContent	Models/ApiContent.php	/^class ApiContent$/;"	c
+ApiContentProviderBundle	ApiContentProviderBundle.php	/^class ApiContentProviderBundle extends Bundle$/;"	c
+ContentPreparationManager	Managers/ContentPreparationManager.php	/^class ContentPreparationManager$/;"	c
+DefaultController	Controller/DefaultController.php	/^class DefaultController extends WebsiteController$/;"	c
+addKeyValuesFromCmsContentBlocks	Managers/ContentPreparationManager.php	/^    public function addKeyValuesFromCmsContentBlocks($blocks, $apiContent)$/;"	f
+addToKeyValueStore	Models/ApiContent.php	/^    public function addToKeyValueStore($key, $value)$/;"	f
+apiContent	Controller/DefaultController.php	/^        $apiContent = $manager->mapCmsContentToApiContent($cmsData);$/;"	v
+apiContent	Managers/ContentPreparationManager.php	/^        $apiContent = new ApiContent();$/;"	v
+cmsData	Controller/DefaultController.php	/^        $cmsData = $this->getAttributes([], $structure, false);$/;"	v
+getAttributes	Controller/DefaultController.php	/^    protected function getAttributes($attributes, StructureInterface $structure = null, $preview = false)$/;"	f
+getKeyValueStore	Models/ApiContent.php	/^    public function getKeyValueStore()$/;"	f
+getPublicData	Models/ApiContent.php	/^    public function getPublicData()$/;"	f
+getTitle	Models/ApiContent.php	/^    public function getTitle()$/;"	f
+getUrl	Models/ApiContent.php	/^    public function getUrl()$/;"	f
+handleImageContent	Managers/ContentPreparationManager.php	/^    private function handleImageContent($key, $value, $apiContent)$/;"	f
+handleTextEditorContent	Managers/ContentPreparationManager.php	/^    private function handleTextEditorContent($key, $value, $apiContent)$/;"	f
+handleTextLineContent	Managers/ContentPreparationManager.php	/^    private function handleTextLineContent($key, $value, $apiContent)$/;"	f
+imagePath	Managers/ContentPreparationManager.php	/^        $imagePath = $value[0]->getUrl();$/;"	v
+indexAction	Controller/DefaultController.php	/^    public function indexAction(StructureInterface $structure, $preview = false, $partial = false)$/;"	f
+key	Managers/ContentPreparationManager.php	/^                    if (!$value || $wasMatched || $key === 'key' || $key === 'type') {$/;"	v
+key	Managers/ContentPreparationManager.php	/^                foreach ($block as $key => $value) {$/;"	v
+key	Models/ApiContent.php	/^        foreach ($this->keyValueStore as $key => $value) {$/;"	v
+keyValueStore	Models/ApiContent.php	/^        $this->keyValueStore = $keyValueStore;$/;"	v
+keyValueStore	Models/ApiContent.php	/^    private $keyValueStore = [];$/;"	v
+manager	Controller/DefaultController.php	/^        $manager = $this->get('api_content_provider.content_preparation_manager');$/;"	v
+mapCmsContentToApiContent	Managers/ContentPreparationManager.php	/^    public function mapCmsContentToApiContent($cmsContent)$/;"	f
+preview	Controller/DefaultController.php	/^    public function indexAction(StructureInterface $structure, $preview = false, $partial = false)$/;"	v
+provides	Controller/DefaultController.php	/^        \/\/ Return the public data the ApiContent class provides as JSON.$/;"	c
+publicData	Models/ApiContent.php	/^        $publicData = [];$/;"	v
+resultKey	Managers/ContentPreparationManager.php	/^                $resultKey = $block['key'];$/;"	v
+resultValue	Managers/ContentPreparationManager.php	/^                $resultValue = null;$/;"	v
+setKeyValueStore	Models/ApiContent.php	/^    public function setKeyValueStore($keyValueStore)$/;"	f
+setTitle	Models/ApiContent.php	/^    public function setTitle($title)$/;"	f
+setUrl	Models/ApiContent.php	/^    public function setUrl($url)$/;"	f
+structure	Controller/DefaultController.php	/^    protected function getAttributes($attributes, StructureInterface $structure = null, $preview = false)$/;"	v
+title	Models/ApiContent.php	/^        $this->title = $title;$/;"	v
+url	Models/ApiContent.php	/^        $this->url = $url;$/;"	v
+url	Models/ApiContent.php	/^    private $url;$/;"	v
+wasMatched	Managers/ContentPreparationManager.php	/^                            $wasMatched = true;$/;"	v
+wasMatched	Managers/ContentPreparationManager.php	/^                $wasMatched = false;$/;"	v

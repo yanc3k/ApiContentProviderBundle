@@ -1,0 +1,33 @@
+{
+	"name": "yanc3k/api-content-provider-bundle",
+	"type": "symfony-bundle",
+	"description": "Bundle to enable headless content providing for the Sulu CMS, which is open source and Symfony based.",
+	"keywords": ["Sulu", "cms", "Symfony", "headless"],
+	"homepage": "http://yanc3k.github.com",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Yannick Treichel",
+			"email": "yannick@treichel.eu"
+		}
+	],
+	"require": {
+		"php":                                ">=5.6",
+		"symfony/dependency-injection":       "~2.3|~3.0",
+		"symfony/expression-language":        "~2.3|~3.0",
+		"symfony/event-dispatcher":           "~2.3|~3.0",
+		"symfony/http-kernel":                "~2.3|~3.0",
+		"psr/log":                            "~1.0",
+        "sulu/sulu": "~1.6.0"
+	},
+	"require-dev": {
+		"php": ">=5.3",
+		"phpunit/phpunit": "~5.4",
+		"symfony/config":  "2.3|~3.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"yanc3k\\ApiContentProviderBundle\\": ""
+		}
+	}
+}
