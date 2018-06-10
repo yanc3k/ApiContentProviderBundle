@@ -76,7 +76,7 @@ ___IMPORTANT___
 Every key-value-pair must be ___one___ block! In each block you have the possibily to define a `key` that will be the key the content of this block will be stored under in the JSON response.
 Then you can set a value, or content, for this key. Only use one of the inputs (text line, text editor, media selection, ...).
 
-[Screenshot of the page in Sulu with expanded key-value block](./docs/Resources/screenshot-text-editor.png)
+![Screenshot of the page in Sulu with expanded key-value block](./docs/Resources/screenshot-text-editor.png)
 
 The screenshot shows the content page in Sulu using the api-content template. There are three key-values defined.
 
