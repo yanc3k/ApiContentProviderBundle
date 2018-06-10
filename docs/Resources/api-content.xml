@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>api-content</key>
+
+    <view>templates/default</view>
+    <controller>ApiContentProviderBundle:Default:index</controller>
+    <cacheLifetime>2400</cacheLifetime>
+
+    <meta>
+        <title lang="en">Api-Content</title>
+        <title lang="de">Api-Content</title>
+    </meta>
+
+    <properties>
+        <section name="highlight">
+            <properties>
+                <property name="title" type="text_line" mandatory="true">
+                    <meta>
+                        <title lang="en">Title</title>
+                        <title lang="de">Titel</title>
+                    </meta>
+                    <params>
+                        <param name="headline" value="true"/>
+                    </params>
+
+                    <tag name="sulu.rlp.part"/>
+                </property>
+
+                <property name="url" type="resource_locator" mandatory="true">
+                    <meta>
+                        <title lang="en">Resourcelocator</title>
+                        <title lang="de">Adresse</title>
+                    </meta>
+
+                    <tag name="sulu.rlp"/>
+                </property>
+            </properties>
+        </section>
+        <block name="blocks" default-type="editor" minOccurs="0">
+            <meta>
+                <title lang="de">Key Value Pairs</title>
+                <title lang="en">Key Value Pairs</title>
+            </meta>
+            <types>
+                <type name="key-value-pair">
+                    <meta>
+                        <title lang="de">Editor mit Bild</title>
+                        <title lang="en">Editor with image</title>
+                    </meta>
+                    <properties>
+                        <property name="key" type="text_line">
+                            <meta>
+                                <title lang="en">Key (As it will be used as the key in the API response json object.)</title>
+                                <title lang="de">Key (As it will be used as the key in the API response json object.)</title>
+                            </meta>
+                        </property>
+                        <property name="value-text-line" type="text_line">
+                            <meta>
+                                <title lang="en">Value</title>
+                                <title lang="de">Value</title>
+                            </meta>
+                        </property>
+                        <property name="value-text-editor" type="text_editor">
+                            <meta>
+                                <title lang="en">Article</title>
+                                <title lang="de">Article</title>
+                            </meta>
+
+                            <params>
+                                <param name="table" value="true"/>
+                                <param name="link" value="true"/>
+                                <param name="paste_from_word" value="true"/>
+                                <param name="height" value="100"/>
+                                <param name="max_height" value="200"/>
+                                <!-- CKEditor Parameters examples: -->
+                                <param name="extra_allowed_content" value="img(*)[*]; span(*)[*]; div(*)[*]; iframe(*)[*]; script(*)[*]" />
+                                <param name="ui_color" value="#ffcc00"/>
+                            </params>
+                        </property>
+                        <property name="value-image" type="media_selection">
+                            <meta>
+                                <title lang="de">Bilde</title>
+                                <title lang="en">Image</title>
+                            </meta>
+                            <params>
+                                <param name="type" value="image"/>
+                                <param name="displayOptions" type="collection">
+                                    <param name="leftTop" value="false"/>
+                                    <param name="top" value="true"/>
+                                    <param name="rightTop" value="false"/>
+                                    <param name="left" value="true"/>
+                                    <param name="middle" value="false"/>
+                                    <param name="right" value="true"/>
+                                    <param name="leftBottom" value="false"/>
+                                    <param name="bottom" value="true"/>
+                                    <param name="rightBottom" value="false"/>
+                                </param>
+                            </params>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </block>
+    </properties>
+</template>
