@@ -3,7 +3,9 @@ Changelog
 
 ### Pre-Release
 
-* Basic functionality improved. Configuration added.
+* Added Sulu XML template to the docs. Updated Readme.
+
+* Basic functionality improved.
 
 * Composer setup to make bundle reusable.
 

@@ -5,6 +5,8 @@ This Bundles purpose is to enable the Open Source CMS Sulu to serve as a headles
 Content pages can be created in the Sulu admin area. All returned content data is stored in simple key-value-pairs.
 The keys can be set freely and the content is created like in usual Sulu applications.
 
+Use it for ReactJs or Angular WebApps or React Native, native, Expo JS or other mobile apps.
+
 # Available Sulu Content Types
 
 Sulu offers many different content types. A content type may be something like a text line input, a full text editor or a media selection for images and other files.
@@ -13,15 +15,15 @@ By now I managed to implement the ones I identified as most important, at least 
 
 ## The following Sulu content types are available at the moment
 
-### (Text line)[http://docs.sulu.io/en/latest/reference/content-types/text_line.html]
+### [Text line](http://docs.sulu.io/en/latest/reference/content-types/text_line.html)
 
 Shows a simple text line, the inserted content will be saved as simple string. (From the Sulu CMS docs)
 
-### (Text editor)[http://docs.sulu.io/en/latest/reference/content-types/text_editor.html]
+### [Text editor](http://docs.sulu.io/en/latest/reference/content-types/text_editor.html)
 
 Shows a rich text editor, capable of formatting text as well. The output of the editor will be stored as HTML in a string field. (From the Sulu CMS docs)
 
-### (Media selection)[http://docs.sulu.io/en/latest/reference/content-types/media_selection.html]
+### [Media selection](http://docs.sulu.io/en/latest/reference/content-types/media_selection.html)
 
 Shows a list with the possibility to assign some assets from the media section to a page. Also allows to define a position, which can be handled later in the template. (From the Sulu CMS docs)
 
@@ -42,256 +44,83 @@ $bundles = [
 ];
 ```
 
-# Configuration
-
-At the moment, this bundle only has a single optional configuration parameter.
-
-If you want (optional), add this to your `app/config/config.yml` file:
-```
-sc_expo_notifications:
-    expo_api_endpoint: '%expo_api_endpoint%'
-```
-
-And then add the `expo_api_endpoint` parameter in your `app/config/parameters.yml` file:
-```
-expo_api_endpoint: https://exp.host/--/api/v2/push/send
-```
-
-If you prefer to not add it as a parameter in your `parameters.yml` file you can add the URI in your config.yml file directly:
-```
-sc_expo_notifications:
-    expo_api_endpoint: https://exp.host/--/api/v2/push/send
-```
-
-__IMPORTANT__: All this is completely OPTIONAL. If you don't add the config at all, it will use `https://exp.host/--/api/v2/push/send` as fallback since it is the endpoint from the official Expo Documentation.
-
 # Usage
 
-This bundle provides you with an easy way to send push notifications for a front-end application using the Expo
-React-Native framework. Therefore the bundle provides you with several helpful things:
-- NotificationContentModel: A model representing the requestdata for a single notification. As specified by the Expo
-API.
-- NotificationManager: A Manager to handle the preparing of the notification, the sending and the reponse.
+This bundle provides you with an easy way to create page content using the Sulu CMS as a headless back end.
+In Sulu you can easily create new templates for the CMS admin area. Those templates are written in XML.
+The ApiContentProviderBundle features a controller that can handle the data as it comes from Sulu on a page request.
 
-The service of the NotificationManager is `sc_expo_notifications.notification_manager`.
-- Use it in a controller with `$this->container->get('sc_expo_notifications.notification_manager')`.
-- Inject it as a dependency like:
-```
-app.example_manager:
-    class: AcmeBundle\Manager\ExampleManager
-    arguments: ['@sc_expo_notifications.notification_manager']
-```
-NOTE that the important part here is the `arguments: ['@sc_expo_notifications.notification_manager']` of course.
+To use it you need to do two things, explained in detail below. ___Important:___ This is in no way interfering with other functionalities of Sulu.
+You won't lose anything by installing this bundle alongside a common setup.
 
-After you have the NotificationManager available you can access its functions.
-Popular functions are:
+## Easiest way
 
-1. sendNotifications(...): Send multiple notifications in one API request.
+The ApiContentProviderBundle comes with a Sulu XML template ready to go. You need to copy it to your `app/Resources/templates/pages` folder.
+You can do that manually or by using this when in the project root:
 
 ```
-    /**
-     * Handle the overall process of multiple new notifications.
-     *
-     * @param array $messages
-     * @param array $tokens
-     * @param array $titles
-     * @param array $data
-     *
-     * @return array
-     */
-    public function sendNotifications(
-        array $messages,
-        array $tokens,
-        array $titles = [],
-        array $data = []
-    ): array
-    {
-		...
-    }
+cp vendor/yanc3k/api-content-provider-bundle/docs/Resources/api-content.xml app/Resources/templates/pages/
 ```
 
-Therefore you need to provide an array of `messages` as strings and an array of `tokens` as strings (to be more
-specific: The recipients ExponentPushToken. Like `sITGtlHf1-mSgUyQIVbVMJ`, without the `ExponentPushToken[]`
-sourrounding.). The first message in the messages array will be delivered to the first token (recipient) in the tokens
-array. And so on. Optionally you can provide a `titles` array which holds titles for the notifications. Last, you can
-provide an array of data arrays that will be added to the notification as a JSON object for further handling in the
-front-end. It is important to know, that each notification needs an array as data! See the Full Example below for more
-information.
+From now on you can choose the api-content template in any content page in the Sulu CMS admim area.
 
-The function returns you an array of NotificationContentModel. One for each notification that was tried to send.
-Those NotificationContentModels hold all the information about the notification.
+### The Content page
 
-For example:
-- to: The token that represents the recipient.
-- title: The title, if provided.
-- body: The actual message of the notification.
-- wasSuccessful: A boolean indicating whether the notification was send (does NOT mean it was recieved or viewed).
-- responseMessage: A message that was returned by the Expo API on unsuccessful request for the specific notification.
-- responseDetails: An array holding error specific information.
+The content page, defined by the XML template you just copied, features the following:
 
-2. sendNotification(...): Send a single notification providing only a message string and a token. Optionally a title.
+* Definition of the title of the page, that will be present in the JSON reponse under the `title` key.
+* Definition of the URL the page content will be available at. This value will be included in the JSON response with the key `url`.
+* Definition of key-value-pairs that are used for the content you want to use in the frontend.
 
-```
-    /**
-     * Handle the overall process of a new notification.
-     *
-     * @param string $message
-     * @param string $token
-     * @param string $title
-     * @param array $data
-     *
-     * @return array
-     */
-    public function sendNotification(
-        string $message,
-        string $token,
-        string $title = '',
-        array $data = null
-    ): NotificationContentModel
-    {
-		...
-    }
-```
-As you can see, this one is really straight forward. It returns a single NotificationContentModel as descibed above.
-The title (string) and the data (array) are optional. If provided, $data must be an array.
+___IMPORTANT___
+Every key-value-pair must be ___one___ block! In each block you have the possibily to define a `key` that will be the key the content of this block will be stored under in the JSON response.
+Then you can set a value, or content, for this key. Only use one of the inputs (text line, text editor, media selection, ...).
 
-## Full Example
+[Screenshot of the page in Sulu with expanded key-value block](./docs/Resources/screenshot-text-editor.png)
 
-To even ease the integration process further, see the following example.
+The screenshot shows the content page in Sulu using the api-content template. There are three key-values defined.
 
-```
-// Get an instance of the NotificationManager provided by this bundle.
-// Using the service, that is available since the bundle installation.
-// Better would be to inject the service as a dependency in your service configuration.
-$notificationManager = $this->get('sc_expo_notifications.notification_manager');
+* One with the key `headline-1` and the value `this is a headline`
+* One with the key `image-user` and the value of a selcted image from the media library of the admin area.
+* One with the key `atricle-1` and the value of a formatted text written in a rich text editor.
 
-// Prepare the titles as you wish. If none would be provided, the app name will be a fallback by Expo.
-$titles = [
-    'New Notification',
-    'Hot news',
-];
+The response for a request to `http://canvas.lo/api-content-canvas` in the browser will return the following JSON.
+___Note:___ The URL obove is based on my local setup and will differ based on the URL you defined in your virual host settings for your webserver. The `/api-content-canvas` part is defined in the content page and free of choice.
 
-// Prepare the messages that shall be sent. This will be more sophisticated under realistic circumstances...
-$messages = [
-    'Hello there!',
-    'What's up?!',
-];
-
-// Prepare the ExpoPushTokens of the recipients.
-$tokens = [
-    'H-Dsb2ATt2FHoD_5rVG5rh',
-    'S_Fs-1ATt4AHDD_5rXcYr4',
-];
-
-// Prepare the data that you want to pass to the front-end to help you handle the notification.
-$data = [
-	['foo' => 'bar', 'baz' => 'boom'],
-	['whatever' => 'you', 'want' => 'here'],
-];
-
-// Send the notifications using the messages and the tokens that will receive them.
-$notificationContentModels = $notificationManager->sendNotifications(
-    $messages,
-    $tokens,
-    $titles,
-    $data
-);
-
-// Handle the response here. Each NotificationContentModel in the $notificationContentModels array
-// holds the information about its success/error and more detailed information.
+```json
+{
+    "url": "/api-content-canvas",
+    "title": "canvas",
+	"headline-1": "this is a headline",
+    "image-user": "/media/1/download/penguin.jpeg?v=1",
+    "article-1": "<p><strong>yeah, this is a bold text</strong></p>\n\n<p>&nbsp;</p>\n\n<p>asdasdad</p>\n"
+}
 ```
 
-If your use case is more complex or you just want to leverage more of the notification funtions you can use the
-`sendNotificationHttp` function of the NotificationManager. For that you need to create the NotificationContentModel
-yourself.
+Lets give that a litte more detail:
+
+The `url` in the response is the url you requested in the browser without locale and base URL.
 ```
-// Use statement for the NotificationContentModel.
-use Solvecrew\ExpoNotificationsBundle\Model\NotificationContentModel;
-
-// Get an instance of the NotificationManager provided by this bundle.
-// Using the service, that is available since the bundle installation.
-// Better would be to inject the service as a dependency in your service configuration.
-$notificationManager = $this->get('sc_expo_notifications.notification_manager');
-
-$token = 'H-Dsb2ATt2FHoD_5rVG5rh';
-$message = 'The message of the notification.';
-$data = ['foo' => 'bar'];
-
-$notificationContentModel = new NotificationContentModel();
-$notificationContentModel
-    ->setTo($token)
-    ->setBody($message)
-    ->setData($data)
-    ->setPriority('medium');
-
-// Send the notification.
-$httpResponse = $notificationManager->sendNotificationHttp($notificationContentModel);
-
-// Handle the response using the notificationManager. Enriches the NotifcationContentModel with the http response data.
-$notificationContentModel = $notificationManager->handleHttpResponse($httpResponse, [$notificationContentModel]);
-
+    "url": "/api-content-canvas",
 ```
 
-If you want to send multiple notifications this way, use `sendNotificationsHttp` (plural).
+The `title` in the response is the content page title defined in Sulu.
 ```
-// Use statement for the NotificationContentModel.
-use Solvecrew\ExpoNotificationsBundle\Model\NotificationContentModel;
-
-// Get an instance of the NotificationManager provided by this bundle.
-// Using the service, that is available since the bundle installation.
-// Better would be to inject the service as a dependency in your service configuration.
-$notificationManager = $this->get('sc_expo_notifications.notification_manager');
-
-$data = ['foo' => 'bar'];
-
-// Create a NotificationContentModel
-$notificationContentModel = new NotificationContentModel();
-$notificationContentModel
-    ->setTo('H-Dsb2ATt2FHoD_5rVG5rh')
-    ->setBody('test message')
-    ->setData($data)
-    ->setPriority('low');
-
-// Create a second NotificationContentModel
-$anotherNotificationContentModel = new NotificationContentModel();
-$anotherNotificationContentModel
-    ->setTo('Z-5sb2AFt2FHoD_5rVG5rh')
-    ->setBody('Your message here')
-    ->setData($data)
-    ->setPriority('medium');
-
-$notificationContentModels = [
-    $notificationContentModel,
-    $anotherNotificationContentModel,
-];
-
-// Send the notifications.
-$httpResponse = $notificationManager->sendNotificationsHttp($notificationContentModels);
-
-// Handle the response using the notificationManager. Enriches the NotifcationContentModel with the http response data.
-$notificationContentModels = $notificationManager->handleHttpResponse($httpResponse, $notificationContentModels);
-
-// The notificationContentModels have now been updated. The info for each notification is now stored in each model.
-```
-# Troubleshooting
-
-If the service `sc_expo_notifications.notification_manager` is not available for some reason, debug your container with
-`bin/console debug:container | grep notification`.
-You should see:
-```
-sc_expo_notifications.guzzle_client                GuzzleHttp\Client
-sc_expo_notifications.notification_manager         Solvecrew\ExpoNotificationsBundle\Manager\NotificationManager
+	"title": "canvas",
 ```
 
-The first service is the guzzle client which is the dependency of our bundle.
-The second service is the notificationManager the bundle provides to handle all notification related tasks.
+The `headline-1` in the response is the first dynamic key in the JSON response.
+It is the one that was defined in the first key-value block in Sulu. The name of this key is entirely up to you.
+```
+    "headline-1": "this is a headline",
+```
 
+The `image-user` key in the response is a media selection in Sulu. There you can chose a file from the easily manageable media library of Sulu. The relative path to that file will be returned. This path is versioned.
+```
+    "image-user": "/media/1/download/penguin.jpeg?v=1",
+```
 
-# Based on the Expo push notifications API
-
-To see the process and the API documentation for the Expo push notifications service see:
-https://docs.expo.io/versions/v14.0.0/guides/push-notifications.html
-
-# LICENSE
-Created by SolveCrew 2017. Contact us if you like: info@solvecrew.com or visit our website: www.solvecrew.com
-MIT
+The `article-1` key in the JSON response holds the content of a rich text editor input provided by Sulu. As you can see, it is HTML, that can be used in the front end, formatted as it is.
+```
+    "article-1": "<p><strong>yeah, this is a bold text</strong></p>\n\n<p>&nbsp;</p>\n\n<p>asdasdad</p>\n"
+```
